@@ -1,5 +1,8 @@
+"use client"
+
 import './App.css';
-import { useState, useEffect } from 'react';  // Importing useState for managing state in the component
+import {useState, useEffect} from 'react'
+import NavBar from './components/navbar';
 
 // Define the backend port and URL for API requests
 const backendPort = 5555;  // Use the port you assigned to the backend server, this would normally go in .env file
@@ -36,8 +39,8 @@ function App() {
 
   return (
     <>
-          <h1>MySQL Results:</h1>
-          <p>{message}</p>
+    <NavBar> </NavBar>
+       
     </>
   );
 
