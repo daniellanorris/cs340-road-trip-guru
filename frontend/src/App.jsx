@@ -13,7 +13,7 @@ import Attractions from './pages/Attractions';
 import Home from './pages/Home'
 
 // Define the backend port and URL for API requests
-const backendPort = 5555;  // Use the port you assigned to the backend server, this would normally go in .env file
+const backendPort = 3221;  // Use the port you assigned to the backend server, this would normally go in .env file
 const backendURL = `http://classwork.engr.oregonstate.edu:${backendPort}/`;
 
 function App() {

@@ -8,7 +8,7 @@ const MY_ONID = process.env.OSU_ID
 const app = express();
 
 // Set a port in the range: 1024 < PORT < 65535
-const PORT = 5555;
+const PORT = 3221;
 
 
 // If on FLIP or classwork, use cors() middleware to allow cross-origin requests from the frontend with your port number:
