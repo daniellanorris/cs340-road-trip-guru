@@ -1,4 +1,4 @@
-import Crud from "../components/crud"
+import Crud from "../components/Crud"
 
 export default function Attractions() {
 
@@ -6,7 +6,7 @@ export default function Attractions() {
         <>
         <h1> Attractions</h1>
         <p> Represents attractions (interesting shops, geological features, historic sites) that a place may contain.</p>
-        <Crud></Crud>
+        <Crud entityType="attractions"></Crud>
         </>
     )
 }
