@@ -3,7 +3,7 @@
 import './App.css';
 import {useState, useEffect} from 'react'
 import NavBar from './components/navbar';
-import { BrowserRouter, Routes, Route} from 'react-router-dom';
+import { Routes, Route} from 'react-router-dom';
 import RoadTripPlaces from './pages/RoadTripPlaces';
 import RoadTripRoutes from './pages/RoadTripRoutes';
 import TripBudgets from './pages/TripBudgets';
