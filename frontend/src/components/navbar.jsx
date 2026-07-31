@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { usePathname } from "next/navigation";
+import '../App.css'
 
 export default function NavBar() {
     const pathname = usePathname();

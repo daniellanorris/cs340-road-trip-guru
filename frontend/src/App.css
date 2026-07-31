@@ -17,19 +17,24 @@
   }
 }
 
+a {
+  text-decoration-line: none;
+  text-decoration-color: blue;
+
+}
+
 .navbar-container {
   display: grid;
   grid-template-columns: auto auto auto;
-  background-color: dodgerblue;
   padding: 10px;
 
 }
 
 .navbar-container div {
-  background-color: #f1f1f1;
-  text-decoration: "none";
   border: 1px solid black;
   padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
   font-size: 30px;
   text-align: center;
 }
