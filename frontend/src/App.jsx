@@ -3,6 +3,14 @@
 import './App.css';
 import {useState, useEffect} from 'react'
 import NavBar from './components/navbar';
+import { BrowserRouter, Routes, Route} from 'react-router-dom';
+import RoadTripPlaces from './pages/RoadTripPlaces';
+import RoadTripRoutes from './pages/RoadTripRoutes';
+import TripBudgets from './pages/TripBudgets';
+import Places from './pages/Places'
+import RoadTrippers from './pages/RoadTrippers';
+import Attractions from './pages/Attractions';
+import Home from './pages/Home'
 
 // Define the backend port and URL for API requests
 const backendPort = 5555;  // Use the port you assigned to the backend server, this would normally go in .env file
@@ -39,8 +47,17 @@ function App() {
 
   return (
     <>
-    <NavBar> </NavBar>
-       
+    <NavBar/>
+      <Routes>
+        <Route path="/" element={<Home/>} />
+        <Route path="/road-trippers" element={<RoadTrippers />} />
+        <Route path="/road-trip-places" element={<RoadTripPlaces />} />
+        <Route path="/road-trip-routes" element={<RoadTripRoutes/>} />
+        <Route path="/attractions" element={<Attractions />} />
+        <Route path="/places" element={<Places />} />
+        <Route path="/trip-budgets" element={<TripBudgets />} />
+      </Routes>
+
     </>
   );
 

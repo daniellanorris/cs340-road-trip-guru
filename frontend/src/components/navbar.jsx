@@ -6,38 +6,42 @@ export default function NavBar() {
 
    return (
     <nav >
-      <div className="font-bold text-xl">MyLogo</div>
       <div className="navbar-container">
         <div>
-          <NavLink href="/road-trippers" className={pathname === "/road-trippers" ? "text-blue-400" : ""}>
+            <NavLink to="/" className={pathname === "/" ? "text-blue-400" : ""}>
+            Home
+            </NavLink>
+        </div>
+        <div>
+          <NavLink to="/road-trippers" className={pathname === "/road-trippers" ? "text-blue-400" : ""}>
             RoadTrippers
           </NavLink>
         </div>
         <div>
-          <NavLink href="/road-trips" className={pathname === "/road-trips" ? "text-blue-400" : ""}>
-            RoadTrips
+          <NavLink to="/trip-budgets" className={pathname === "/trip-budgets" ? "text-blue-400" : ""}>
+            TripBudgets
           </NavLink>
 
         </div>
         <div>
-          <NavLink href="/road-trip-places" className={pathname === "/road-trip-places" ? "text-blue-400" : ""}>
+          <NavLink to="/road-trip-places" className={pathname === "/road-trip-places" ? "text-blue-400" : ""}>
             RoadTripPlaces
           </NavLink>
         </div>
 
                 <div>
-          <NavLink href="/places" className={pathname === "/places" ? "text-blue-400" : ""}>
+          <NavLink to="/places" className={pathname === "/places" ? "text-blue-400" : ""}>
             Places
           </NavLink>
         </div>
         <div>
-          <NavLink href="/road-trip-routes" className={pathname === "/road-trip-routes" ? "text-blue-400" : ""}>
+          <NavLink to="/road-trip-routes" className={pathname === "/road-trip-routes" ? "text-blue-400" : ""}>
             RoadTripRoutes
           </NavLink>
 
         </div>
         <div>
-          <NavLink href="/attractions" className={pathname === "/attractions" ? "text-blue-400" : ""}>
+          <NavLink to="/attractions" className={pathname === "/attractions" ? "text-blue-400" : ""}>
             Attractions
           </NavLink>
         </div>
