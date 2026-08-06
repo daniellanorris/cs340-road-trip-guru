@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import './FormBase.css'
-import Collapse from "@mui/material/Collapse"
+import CloseIcon from '@mui/icons-material/Close';
 
-export default function FormBase({ title, recordList, onSubmit, submitLabel = "Submit" }) {
+export default function FormBase({ title, recordList, onSubmit, onClose, submitLabel = "Submit" }) {
     const [formData, setFormData] = useState({})
 
     function handleChange(event) {
@@ -26,7 +26,13 @@ export default function FormBase({ title, recordList, onSubmit, submitLabel = "S
             border: '1px solid #e5e7eb',
             boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
         }}>
-            <h2 style={{ color: '#111827' }}>{title}</h2>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                <CloseIcon
+                    onClick={onClose}
+                    style={{ cursor: 'pointer', color: '#6b7280' }}
+                />
+            </div>
+
             <form onSubmit={handleSubmit}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                     {Object.entries(recordList).map(([key, type]) => (

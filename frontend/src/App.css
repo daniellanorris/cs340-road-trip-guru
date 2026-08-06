@@ -18,6 +18,12 @@
   }
 }
 
+.header {
+  margin: 20px;
+  text-align: left;
+  font-size: 50px !important;
+}
+
 a {
   text-decoration-line: none;
   text-decoration-color: blue;

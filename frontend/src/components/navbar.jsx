@@ -7,16 +7,9 @@ export default function NavBar() {
 
     return (
         <nav>
+            <div className="header"> <a href="/">Road Trip Guru </a> </div>
             <div className="navbar-container">
 
-                <div>
-                    <NavLink
-                        to="/"
-                        className={pathname === "/" ? "text-blue-400" : ""}
-                    >
-                        Home
-                    </NavLink>
-                </div>
 
                 <div>
                     <NavLink

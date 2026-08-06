@@ -1,13 +1,13 @@
 import FormBase from '../components/FormBase'
 
-export default function Create({ recordList }) {
+export default function Create({ recordList, onClose }) {
     return (
         <FormBase
             title="Create a record"
             recordList={recordList}
             submitLabel="Create"
-            submitColor="primary"
-            onSubmit={(data) => console.log('create', data)}
+            onClose={onClose}
+            onSubmit={(data) => console.log(data)}
         />
     )
 }

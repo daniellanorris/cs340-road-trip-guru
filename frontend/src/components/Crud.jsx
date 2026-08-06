@@ -2,7 +2,6 @@ import './Crud.css';
 
 import { useState } from 'react';
 
-import Generate from './GenerateForm';
 import Update from './UpdateForm';
 import Create from './CreateForm';
 import Delete from './DeleteForm';
@@ -15,6 +14,8 @@ import {
     places,
     tripBudgets
 } from '../types/data';
+
+
 
 export default function Crud({ entityType }) {
 
@@ -40,6 +41,7 @@ export default function Crud({ entityType }) {
         setIsOpen(value);
     }
 
+
     return (
         <>
             <div className="crud-container">
@@ -52,19 +54,7 @@ export default function Crud({ entityType }) {
                     Create Record
                 </button>
 
-                <button
-                    onClick={() => handleOpen("update")}
-                    className="crud-button update"
-                >
-                    Update Record
-                </button>
 
-                <button
-                    onClick={() => handleOpen("delete")}
-                    className="crud-button delete"
-                >
-                    Delete Record
-                </button>
 
             </div>
 
@@ -75,7 +65,7 @@ export default function Crud({ entityType }) {
                 )}
 
                 {isOpen === "create" && (
-                    <Create recordList={data} />
+                    <Create recordList={data} onClose={() => setIsOpen("")} />
                 )}
 
                 {isOpen === "update" && (
