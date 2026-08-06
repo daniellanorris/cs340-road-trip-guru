@@ -1,24 +1,31 @@
 import FormBase from '../components/FormBase'
 import { useState } from 'react'
+import { postUser } from '../../lib/api'
 
-const BASE_URL = `http://classwork.engr.oregonstate.edu:${import.meta.env.VITE_BACKEND_PORT}`
-
-export default function Create({ recordList, onClose, message }) {
+export default function Create({ recordList, onClose, entityType }) {
     const [message, setMessage] = useState("")
 
-    async function postUser(data) {
-        const response = await fetch(`${BASE_URL}/insert-roadtripper`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                username: data.username,
-                email: data.email,
-            })
-        })
-        const result = await response.json()
-        console.log(result)
-        setMessage({ result })
-        return result
+    async function handleSubmit(data) {
+        let result
+
+        if (entityType === "roadTrippers") {
+            result = await postUser(data)
+        }
+
+        else {
+            return
+        }
+
+        if (result?.error) {
+            setMessage(`Error: ${result.error}`)
+        } else {
+            setMessage(result?.message || "Record created successfully")
+        }
+    }
+
+    function handleClose() {
+        setMessage("")
+        onClose?.()
     }
 
     return (
@@ -26,9 +33,10 @@ export default function Create({ recordList, onClose, message }) {
             title="Create a record"
             recordList={recordList}
             submitLabel="Create"
-            onClose={onClose && setMessage("")}
-            onSubmit={(data) => postUser(data)}
+            onClose={handleClose}
+            onSubmit={handleSubmit}
             message={message}
+            entityType={entityType}
         />
     )
 }

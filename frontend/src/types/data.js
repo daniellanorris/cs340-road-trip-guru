@@ -1,3 +1,4 @@
+
 export const attractions = {
     place_id: Number,
     attraction_name: String

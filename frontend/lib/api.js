@@ -3,6 +3,12 @@
 const BASE_URL = `http://classwork.engr.oregonstate.edu:${import.meta.env.VITE_BACKEND_PORT}`
 
 console.log('base url', BASE_URL)
+
+/*----------------
+/* GETS
+/*----------------*/
+
+
 // attractions
 export async function getAttractions() {
     const response = await fetch(`${BASE_URL}/attractions`)
@@ -45,3 +51,36 @@ export async function getRoadTripPlaces() {
     const data = await response.json()
     return data
 }
+
+/*----------------
+/* POSTS
+/*----------------*/
+
+export async function postUser(data) {
+    try {
+        const response = await fetch(`${BASE_URL}/insert-roadtripper`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                username: data.username,
+                email: data.email,
+            })
+        })
+        const result = await response.json()
+
+        if (!response.ok) {
+            return { error: result.error }
+        }
+
+        return { message: result.message }
+
+    } catch (error) {
+        console.error(error)
+        return { error: "Could not connect to server" }
+    }
+}
+
+
+/*----------------
+/* DELETES
+/*----------------*/

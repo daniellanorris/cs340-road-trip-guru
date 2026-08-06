@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Update from './UpdateForm';
 import Create from './CreateForm';
 import Delete from './DeleteForm';
+
 import {
     roadTrippers,
     roadTripPlaces,
@@ -31,6 +32,7 @@ export default function Crud({ entityType, onReset }) {
         console.error(`No entity type found: ${entityType}`)
     }
 
+
     return (
         <>
             <div className="crud-container">
@@ -50,7 +52,7 @@ export default function Crud({ entityType, onReset }) {
 
             <div className="form-container">
                 {isOpen === "create" && (
-                    <Create recordList={data} onClose={() => setIsOpen("")} />
+                    <Create recordList={data} entityType={entityType} onClose={() => setIsOpen("")} />
                 )}
                 {isOpen === "update" && (
                     <Update recordList={data} onClose={() => setIsOpen("")} />
