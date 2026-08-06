@@ -21,7 +21,7 @@ const entityData = {
     roadTrippers,
 }
 
-export default function Crud({ entityType }) {
+export default function Crud({ entityType, onReset }) {
     const [isOpen, setIsOpen] = useState("")
 
     const isReset = entityType === "reset"
@@ -35,7 +35,7 @@ export default function Crud({ entityType }) {
         <>
             <div className="crud-container">
                 {isReset ? (
-                    <button className="crud-button delete">
+                    <button className="crud-button delete" onClick={onReset}>
                         Reset all records
                     </button>
                 ) : (
