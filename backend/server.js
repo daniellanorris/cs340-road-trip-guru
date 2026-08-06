@@ -2,6 +2,8 @@
 import express from 'express'
 import {db} from './db-connector.js'
 import cors from 'cors'
+
+
 const MY_ONID = process.env.OSU_ID
 
 // Instantiate an express object to interact with the server
@@ -43,6 +45,16 @@ app.get('/', async (req, res) => {
         res.status(500).send("An error occurred while executing the database queries.");
     }
 });
+
+app.get('/', async (req, res) => {
+    const attractionQuery = `SELECT *
+FROM Attractions
+ORDER BY attraction_id;`
+
+const [result] = await db.query(attractionQuery)
+res.status(200).json(result)
+console.log(result)
+})
 // Tell express what port to listen on 
 app.listen(PORT, function () {
     console.log('Express started on http://classwork.engr.oregonstate.edu:' + PORT + '; press Ctrl-C to terminate.');
