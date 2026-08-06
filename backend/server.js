@@ -71,15 +71,15 @@ app.get('/tripBudgets', async (req, res) => {
     }
 })
 
+
 app.post('/insert-roadtripper', async (req, res) => {
     try {
         const { username, email } = req.body
         const [result] = await db.query('CALL sp_insert_roadtripper(?, ?)', [username, email])
-        return res.status(201).json(result)
+        res.status(201).json({ message: 'Record created successfully' })
     } catch (error) {
         console.error(error)
-        return res.status(500).json({ error: error.message })
-
+        res.status(500).json({ error: error.sqlMessage || error.message })
     }
 })
 

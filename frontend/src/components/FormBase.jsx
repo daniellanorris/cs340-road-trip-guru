@@ -5,14 +5,16 @@ import CloseIcon from '@mui/icons-material/Close';
 export default function FormBase({ message, recordList, onSubmit, onClose, submitLabel = "Submit" }) {
     const [formData, setFormData] = useState({})
 
+
     function handleChange(event) {
         const { name, value } = event.target
         setFormData({ ...formData, [name]: value })
     }
 
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
         event.preventDefault()
-        onSubmit?.(formData)
+        await onSubmit?.(formData)
+        setFormData({})
     }
 
     return (
@@ -74,8 +76,18 @@ export default function FormBase({ message, recordList, onSubmit, onClose, submi
                     >
                         {submitLabel}
                     </button>
-                    {message &&
-                        <div> {message} </div>}
+
+                    {message && (
+                        <div style={{
+                            padding: '8px 12px',
+                            borderRadius: '4px',
+                            backgroundColor: message.includes('Error') ? '#fee2e2' : '#dcfce7',
+                            color: message.includes('Error') ? '#991b1b' : '#166534',
+                            fontSize: '0.875rem',
+                        }}>
+                            {message}
+                        </div>
+                    )}
                 </div>
             </form>
         </div>
