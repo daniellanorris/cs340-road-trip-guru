@@ -1,11 +1,12 @@
 import Modal from '@mui/material/Modal'
 import { useState } from 'react'
 import Box from '@mui/material/Box'
+import CloseIcon from '@mui/icons-material/Close'
+
+const BASE_URL = `http://classwork.engr.oregonstate.edu:${import.meta.env.VITE_BACKEND_PORT}`
 
 export default function ResetModal({ open, setResetOpen }) {
-    const BASE_URL = `http://classwork.engr.oregonstate.edu:${import.meta.env.VITE_BACKEND_PORT}`
-
-    const [message, setMessage] = useState("")
+    const [message, setMessage] = useState(null)
 
     async function resetTables() {
         try {
@@ -25,8 +26,14 @@ export default function ResetModal({ open, setResetOpen }) {
             setMessage("Error: Could not connect to server")
         }
     }
+
+    function handleClose() {
+        setResetOpen(false)
+        setMessage(null)
+    }
+
     return (
-        <Modal open={open} message={message} onClose={() => setResetOpen(false)}>
+        <Modal open={open} onClose={handleClose}>
             <Box sx={{
                 position: 'absolute',
                 top: '50%',
@@ -43,11 +50,31 @@ export default function ResetModal({ open, setResetOpen }) {
                 gap: '1rem',
                 alignItems: 'center',
             }}>
-                <div>Are you sure you want to reset all tables?</div>
-                <div style={{ display: 'flex', gap: '1rem' }}>
-                    <div className="crud-button create" onClick={() => resetTables()}>Yes</div>
-                    <div className="crud-button" onClick={() => setResetOpen(false)}>No</div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+                    <span style={{ fontWeight: '600' }}>Reset Tables</span>
+                    <CloseIcon onClick={handleClose} style={{ cursor: 'pointer', color: '#6b7280' }} />
                 </div>
+
+                <div>Are you sure you want to reset all tables?</div>
+
+                <div style={{ display: 'flex', gap: '1rem' }}>
+                    <div className="crud-button create" onClick={resetTables}>Yes</div>
+                    <div className="crud-button" onClick={handleClose}>No</div>
+                </div>
+
+                {message && (
+                    <div style={{
+                        padding: '8px 12px',
+                        borderRadius: '4px',
+                        backgroundColor: message.includes('Error') ? '#fee2e2' : '#dcfce7',
+                        color: message.includes('Error') ? '#991b1b' : '#166534',
+                        fontSize: '0.875rem',
+                        width: '100%',
+                        textAlign: 'center',
+                    }}>
+                        {message}
+                    </div>
+                )}
             </Box>
         </Modal>
     )

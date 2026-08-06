@@ -2,6 +2,8 @@ import express from 'express'
 import { db } from './db-connector.js'
 import cors from 'cors'
 import dotenv from 'dotenv'
+import { selectAllAttractions } from './queries/attractions-places.js'
+
 
 dotenv.config();
 
@@ -87,6 +89,16 @@ app.post('/reset', async (req, res) => {
     try {
         const [result] = await db.query('CALL sp_reset_road_trip_guru()')
         res.status(200).json({ result, message: "Records successfully reset" })
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({ error: error.message })
+    }
+})
+
+app.get('/attractions-places', async (req, res) => {
+    try {
+        const [result] = await db.query(selectAllAttractions)
+        res.status(200).json({ result, message: "Records successfully grabbed" })
     } catch (error) {
         console.error(error)
         res.status(500).json({ error: error.message })
