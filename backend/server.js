@@ -76,7 +76,7 @@ app.post('/insert-roadtripper', async (req, res) => {
     try {
         const { username, email } = req.body
         const [result] = await db.query('CALL sp_insert_roadtripper(?, ?)', [username, email])
-        res.status(201).json({ message: 'Record created successfully' })
+        res.status(201).json({ message: 'Record created successfully. Refresh page to see row added to table.' })
     } catch (error) {
         console.error(error)
         res.status(500).json({ error: error.sqlMessage || error.message })
@@ -85,8 +85,8 @@ app.post('/insert-roadtripper', async (req, res) => {
 
 app.post('/reset', async (req, res) => {
     try {
-        const [result] = await db.query('CALL sp_reset()')
-        res.status(200).json(result)
+        const [result] = await db.query('CALL sp_reset_road_trip_guru()')
+        res.status(200).json({ result, message: "Records successfully reset" })
     } catch (error) {
         console.error(error)
         res.status(500).json({ error: error.message })
