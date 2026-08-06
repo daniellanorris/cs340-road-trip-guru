@@ -1,11 +1,8 @@
 import './Crud.css';
-
 import { useState } from 'react';
-
 import Update from './UpdateForm';
 import Create from './CreateForm';
 import Delete from './DeleteForm';
-
 import {
     roadTrippers,
     roadTripPlaces,
@@ -15,68 +12,53 @@ import {
     tripBudgets
 } from '../types/data';
 
-
+const entityData = {
+    places,
+    tripBudgets,
+    attractions,
+    roadTripRoutes,
+    roadTripPlaces,
+    roadTrippers,
+}
 
 export default function Crud({ entityType }) {
+    const [isOpen, setIsOpen] = useState("")
 
-    const [isOpen, setIsOpen] = useState("");
+    const isReset = entityType === "reset"
+    const data = entityData[entityType]
 
-    const entityData = {
-        places: places,
-        tripBudgets: tripBudgets,
-        attractions: attractions,
-        roadTripRoutes: roadTripRoutes,
-        roadTripPlaces: roadTripPlaces,
-        roadTrippers: roadTrippers
-    };
-
-    const data = entityData[entityType];
-    console.log(data)
-
-    if (!data) {
-        console.error(`No entity type found: ${entityType}`);
+    if (!isReset && !data) {
+        console.error(`No entity type found: ${entityType}`)
     }
-
-    function handleOpen(value) {
-        setIsOpen(value);
-    }
-
 
     return (
         <>
             <div className="crud-container">
-
-
-                <button
-                    onClick={() => handleOpen("create")}
-                    className="crud-button create"
-                >
-                    Create Record
-                </button>
-
-
-
+                {isReset ? (
+                    <button className="crud-button delete">
+                        Reset all records
+                    </button>
+                ) : (
+                    <button
+                        onClick={() => setIsOpen("create")}
+                        className="crud-button create"
+                    >
+                        Create Record
+                    </button>
+                )}
             </div>
 
             <div className="form-container">
-
-                {isOpen === "generate" && (
-                    <Generate recordList={data} />
-                )}
-
                 {isOpen === "create" && (
                     <Create recordList={data} onClose={() => setIsOpen("")} />
                 )}
-
                 {isOpen === "update" && (
-                    <Update recordList={data} />
+                    <Update recordList={data} onClose={() => setIsOpen("")} />
                 )}
-
                 {isOpen === "delete" && (
-                    <Delete recordList={data} />
+                    <Delete recordList={data} onClose={() => setIsOpen("")} />
                 )}
-
             </div>
         </>
-    );
+    )
 }

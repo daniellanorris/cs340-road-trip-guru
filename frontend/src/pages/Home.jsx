@@ -1,4 +1,4 @@
-
+import Crud from '../components/Crud.jsx'
 
 export default function Home() {
 
@@ -8,6 +8,7 @@ export default function Home() {
             <p> This web application serves as a way to manage the records within
                 Road Trip Guru's entity tables.
             </p>
+            <Crud entityType="reset"></Crud>
         </>
     )
 }
