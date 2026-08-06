@@ -1,54 +1,13 @@
+import FormBase from '../components/FormBase'
 
-import {useState} from 'react'
-
-export default function Generate({recordList}) {
-
-    const [formData, setFormData] = useState({});
-
-    function handleChange(event) {
-        const { name, value } = event.target;
-
-        setFormData({
-            ...formData,
-            [name]: value
-        });
-    }
-
+export default function Generate({ recordList }) {
     return (
-        <>
-            <h2> Generate data </h2>
-             <form >
-                {Object.entries(recordList).map(([key, type]) => (
-
-                    <div key={key}>
-
-                        <label htmlFor={key}>
-                            {key}
-                        </label>
-
-                        <input
-                            id={key}
-                            name={key}
-                            type={
-                                type === Number
-                                    ? "number"
-                                    : type === Date
-                                        ? "date"
-                                        : "text"
-                            }
-                            value={formData[key] || ""}
-                            onChange={handleChange}
-                        />
-
-                    </div>
-
-                ))}
-
-
-                <button type="submit">Submit</button>
-            </form>
-        </>
-
+        <FormBase
+            title="Generate data"
+            recordList={recordList}
+            submitLabel="Generate"
+            submitColor="secondary"
+            onSubmit={(data) => console.log('generate', data)}
+        />
     )
-
 }

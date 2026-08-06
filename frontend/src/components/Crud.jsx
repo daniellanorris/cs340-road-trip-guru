@@ -44,12 +44,6 @@ export default function Crud({ entityType }) {
         <>
             <div className="crud-container">
 
-                <button
-                    onClick={() => handleOpen("generate")}
-                    className="crud-button generate"
-                >
-                    Generate Table
-                </button>
 
                 <button
                     onClick={() => handleOpen("create")}
