@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './FormBase.css'
 import CloseIcon from '@mui/icons-material/Close';
 
-export default function FormBase({ title, recordList, onSubmit, onClose, submitLabel = "Submit" }) {
+export default function FormBase({ message, recordList, onSubmit, onClose, submitLabel = "Submit" }) {
     const [formData, setFormData] = useState({})
 
     function handleChange(event) {
@@ -74,6 +74,8 @@ export default function FormBase({ title, recordList, onSubmit, onClose, submitL
                     >
                         {submitLabel}
                     </button>
+                    {message &&
+                        <div> {message} </div>}
                 </div>
             </form>
         </div>
