@@ -1,12 +1,15 @@
 
 import Crud from "../components/Crud"
+import Table from "../components/Table"
+
 export default function Places() {
 
     return (
         <>
-        <h1> Places </h1>
-        <p> A physical place in the world that can be added to a road trip route, such as a city or municipality.</p>
-        <Crud entityType="places"></Crud>
+            <h1> Places </h1>
+            <p> A physical place in the world that can be added to a road trip route, such as a city or municipality.</p>
+            <Crud entityType="places"></Crud>
+            <Table recordType="places"></Table>
         </>
     )
 }

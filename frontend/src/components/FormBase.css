@@ -1,0 +1,25 @@
+.form-card {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background-color: var(--bg);
+    color: var(--text);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+}
+
+.form-title {
+    color: var(--text-h);
+}
+
+.form-field label {
+    color: var(--text);
+}
+
+.form-field input {
+    background-color: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+}
