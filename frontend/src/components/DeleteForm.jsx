@@ -1,13 +1,50 @@
-import FormBase from '../components/FormBase'
+import FormBase from './FormBase';
+import { deleteAttraction, deleteRoadTripPlaces } from '../../lib/api';
+import { useState } from 'react';
 
-export default function Delete({ recordList }) {
+export default function DeleteForm({
+    recordList,
+    entityType,
+    onClose
+}) {
+    const [message, setMessage] = useState("");
+
+    async function handleSubmit(data) {
+        let result;
+
+        if (entityType === "attractions") {
+            result = await deleteAttraction(data);
+        }
+
+        if (entityType === "roadTripPlaces") {
+            result = await deleteRoadTripPlaces(data);
+        }
+
+        if (!result) {
+            setMessage("Error: Delete operation not supported.");
+            return;
+        }
+
+        if (result.error) {
+            setMessage(`Error: ${result.error}`);
+        } else {
+            setMessage(result.message);
+        }
+    }
+
+    function handleClose() {
+        setMessage("");
+        onClose?.();
+    }
+
     return (
         <FormBase
-            title="Delete data"
             recordList={recordList}
             submitLabel="Delete"
-            submitColor="error"
-            onSubmit={(data) => console.log('delete', data)}
+            onSubmit={handleSubmit}
+            onClose={handleClose}
+            message={message}
+            viewForm={false}
         />
-    )
+    );
 }

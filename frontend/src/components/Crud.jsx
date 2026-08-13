@@ -1,8 +1,7 @@
-import './Crud.css';
-import { useState } from 'react';
-import Update from './UpdateForm';
-import Create from './CreateForm';
-import Delete from './DeleteForm';
+import './Crud.css'
+import { useState } from 'react'
+import Create from './CreateForm'
+import Edit from './EditForm'
 
 import {
     roadTrippers,
@@ -11,7 +10,7 @@ import {
     attractions,
     places,
     tripBudgets
-} from '../types/data';
+} from '../types/data'
 
 const entityData = {
     places,
@@ -32,35 +31,50 @@ export default function Crud({ entityType, onReset }) {
         console.error(`No entity type found: ${entityType}`)
     }
 
+    function handleClose() {
+        setIsOpen("")
+    }
 
     return (
         <>
             <div className="crud-container">
+
                 {isReset ? (
-                    <button className="crud-button delete" onClick={onReset}>
+                    <button
+                        className="crud-button delete"
+                        onClick={onReset}
+                    >
                         Reset all records
                     </button>
                 ) : (
-                    <button
-                        onClick={() => setIsOpen("create")}
-                        className="crud-button create"
-                    >
-                        Create Record
-                    </button>
+                    <>
+                        <button
+                            onClick={() => setIsOpen("create")}
+                            className="crud-button create"
+                        >
+                            Create Record
+                        </button>
+
+                    </>
                 )}
+
             </div>
 
-            <div className="form-container">
-                {isOpen === "create" && (
-                    <Create recordList={data} entityType={entityType} onClose={() => setIsOpen("")} />
-                )}
-                {isOpen === "update" && (
-                    <Update recordList={data} onClose={() => setIsOpen("")} />
-                )}
-                {isOpen === "delete" && (
-                    <Delete recordList={data} onClose={() => setIsOpen("")} />
-                )}
-            </div>
+            {isOpen === "create" && (
+                <Create
+                    recordList={data}
+                    entityType={entityType}
+                    onClose={handleClose}
+                />
+            )}
+
+            {isOpen === "edit" && (
+                <Edit
+                    recordList={data}
+                    entityType={entityType}
+                    onClose={handleClose}
+                />
+            )}
         </>
     )
 }

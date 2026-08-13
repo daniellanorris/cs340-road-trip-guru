@@ -8,6 +8,7 @@ export default function Update({ recordList }) {
             submitLabel="Update"
             submitColor="primary"
             onSubmit={(data) => console.log('update', data)}
+            viewForm={false}
         />
     )
 }
