@@ -1,104 +1,111 @@
-import { useState, useEffect } from 'react'
-import './FormBase.css'
+import { useEffect, useState } from 'react';
+import './FormBase.css';
 import CloseIcon from '@mui/icons-material/Close';
-import { getPlaces } from "../../lib/api";
+import PlaceOptions from './Options/PlaceOptions';
+import RoadTripOptions from './Options/RoadTripOptions';
 
-export default function FormBase({ message, entityType, recordList, onSubmit, onClose, submitLabel = "Submit" }) {
-    const [formData, setFormData] = useState({})
-    console.log(entityType)
+export default function FormBase({
+    message,
+    recordList,
+    onSubmit,
+    onClose,
+    rowData,
+    submitLabel = "Submit"
+}) {
+    const [formData, setFormData] = useState(rowData || {});
 
-    const [places, setPlaces] = useState([]);
-
-
+    // Populate form with the selected row when editing
     useEffect(() => {
-        async function fetchPlaces() {
-            const data = await getPlaces();
-            setPlaces(data);
+        if (rowData) {
+            setFormData({
+                ...rowData,
+                road_trip_id: rowData.road_trip_id?.toString() || "",
+                place_id: rowData.place_id?.toString() || "",
+                stop_order: rowData.stop_order?.toString() || ""
+            });
         }
-
-        if (entityType === "attractions") {
-            fetchPlaces();
-        }
-    }, [entityType]);
-
-    console.log('places', places)
-
+    }, [rowData]);
 
     function handleChange(event) {
-        const { name, value } = event.target
-        setFormData({ ...formData, [name]: value })
+        const { name, value } = event.target;
+
+        setFormData(prev => ({
+            ...prev,
+            [name]: value
+        }));
     }
 
     async function handleSubmit(event) {
-        event.preventDefault()
-        await onSubmit?.(formData)
-        setFormData({})
+        event.preventDefault();
+
+        console.log("FORM DATA:", formData);
+
+        await onSubmit?.(formData);
+    }
+
+    function formatLabel(key) {
+        return key
+            .replace(/_/g, ' ')
+            .replace(/\b\w/g, char => char.toUpperCase());
     }
 
     return (
-        <div style={{
-            maxWidth: '500px',
-            margin: '2rem auto',
-            padding: '1.5rem',
-            backgroundColor: '#ffffff',
-            color: '#111827',
-            borderRadius: '8px',
-            border: '1px solid #e5e7eb',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-        }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-                <CloseIcon
-                    onClick={onClose}
-                    style={{ cursor: 'pointer', color: '#6b7280' }}
-                />
-            </div>
-            <form onSubmit={handleSubmit}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                    {Object.entries(recordList).map(([key, type]) => (
-                        <div key={key} style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                            <label htmlFor={key} style={{ color: '#374151', fontSize: '0.875rem' }}>{key}</label>
+        <div className="form-card">
 
-                            {entityType === "attractions" && key === "place_id" ? (
-                                <select
-                                    id={key}
+            <div className="form-header">
+                <h2 className="form-title">
+                    {submitLabel}
+                </h2>
+
+                <button
+                    type="button"
+                    className="close-button"
+                    onClick={onClose}
+                    aria-label="Close form"
+                >
+                    <CloseIcon />
+                </button>
+            </div>
+
+            <form onSubmit={handleSubmit}>
+                <div className="form-fields">
+
+                    {Object.entries(recordList).map(([key, type]) => (
+                        <div className="form-field" key={key}>
+
+                            <label
+                                htmlFor={key}
+                                className="form-label"
+                            >
+                                {formatLabel(key)}
+                            </label>
+
+                            {key === "place_id" ? (
+                                <PlaceOptions
                                     name={key}
                                     value={formData[key] || ""}
                                     onChange={handleChange}
-                                    style={{
-                                        padding: '8px 12px',
-                                        fontSize: '1rem',
-                                        border: '1px solid #e5e7eb',
-                                        borderRadius: '4px',
-                                        backgroundColor: '#ffffff',
-                                        color: '#111827',
-                                    }}
-                                >
-                                    <option value="">Select a place</option>
-                                    {places.map(place => (
-                                        <option key={place.place_id} value={place.place_id}>
-                                            {place.place_name}
-                                        </option>
-                                    ))}
-                                </select>
+                                />
+                            ) : key === "road_trip_id" ? (
+                                <RoadTripOptions
+                                    name={key}
+                                    value={formData[key] || ""}
+                                    onChange={handleChange}
+                                />
                             ) : (
                                 <input
                                     id={key}
                                     name={key}
                                     type={
-                                        type === Number ? "number"
-                                            : type === Date ? "date"
+                                        type === Number
+                                            ? "number"
+                                            : type === Date
+                                                ? "date"
                                                 : "text"
                                     }
                                     value={formData[key] || ""}
                                     onChange={handleChange}
-                                    style={{
-                                        padding: '8px 12px',
-                                        fontSize: '1rem',
-                                        border: '1px solid #e5e7eb',
-                                        borderRadius: '4px',
-                                        backgroundColor: '#ffffff',
-                                        color: '#111827',
-                                    }}
+                                    className="form-input"
                                 />
                             )}
                         </div>
@@ -106,35 +113,24 @@ export default function FormBase({ message, entityType, recordList, onSubmit, on
 
                     <button
                         type="submit"
-                        style={{
-                            padding: '10px',
-                            fontSize: '1rem',
-                            fontWeight: '600',
-                            border: 'none',
-                            borderRadius: '4px',
-                            cursor: 'pointer',
-                            backgroundColor: '#1976d2',
-                            color: '#ffffff',
-                            marginTop: '0.5rem',
-                        }}
+                        className="submit-button"
                     >
                         {submitLabel}
                     </button>
 
                     {message && (
-                        <div style={{
-                            padding: '8px 12px',
-                            borderRadius: '4px',
-                            backgroundColor: message.includes('Error') ? '#fee2e2' : '#dcfce7',
-                            color: message.includes('Error') ? '#991b1b' : '#166534',
-                            fontSize: '0.875rem',
-                            textAlign: 'center',
-                        }}>
+                        <div
+                            className={`form-message ${message.startsWith("Error")
+                                    ? "error"
+                                    : "success"
+                                }`}
+                        >
                             {message}
                         </div>
                     )}
+
                 </div>
             </form>
-        </div >
-    )
+        </div>
+    );
 }

@@ -2,7 +2,15 @@ import { useEffect, useState } from 'react'
 import { DataGrid } from '@mui/x-data-grid'
 import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
-import { getPlaces, getAttractions, getRoadTrippers, getRoadTripRoutes, getTripBudgets, getRoadTripPlaces } from '../../lib/api.js'
+
+import {
+    getPlaces,
+    getAttractions,
+    getRoadTrippers,
+    getRoadTripRoutes,
+    getTripBudgets,
+    getRoadTripPlaces
+} from '../../lib/api.js'
 
 const fetchMap = {
     attractions: getAttractions,
@@ -13,22 +21,36 @@ const fetchMap = {
     roadTripPlaces: getRoadTripPlaces,
 }
 
-export default function RecordsTable({ recordType, onEdit, onDelete }) {
+const primaryKeyMap = {
+    attractions: 'attraction_id',
+    places: 'place_id',
+    roadTrippers: 'road_tripper_id',
+    roadTripRoutes: 'road_trip_id',
+    tripBudgets: 'trip_budget_id',
+    roadTripPlaces: 'road_trip_place_id',
+}
+
+export default function Table({ recordType, onEdit, onDelete, onView }) {
     const [rows, setRows] = useState([])
 
     useEffect(() => {
         async function fetchData() {
             const fetchFn = fetchMap[recordType]
+
             if (!fetchFn) return
+
             const data = await fetchFn()
             setRows(data)
         }
+
         fetchData()
     }, [recordType])
 
-    if (rows.length === 0) return <p>No records found.</p>
+    if (rows.length === 0) {
+        return <p>No records found.</p>
+    }
 
-    // data columns generated from db
+    const primaryKey = primaryKeyMap[recordType]
 
     const dataColumns = Object.keys(rows[0]).map((col) => ({
         field: col,
@@ -36,14 +58,13 @@ export default function RecordsTable({ recordType, onEdit, onDelete }) {
         flex: 1,
     }))
 
-    // action column contains edit and delete actions
     const actionColumn = {
-
         field: 'actions',
         headerName: 'Actions',
         flex: 1,
         sortable: false,
         filterable: false,
+
         renderCell: (params) => (
             <Box sx={{ display: 'flex', gap: 1 }}>
                 <Button
@@ -53,13 +74,31 @@ export default function RecordsTable({ recordType, onEdit, onDelete }) {
                 >
                     Edit
                 </Button>
+
                 <Button
                     size="small"
                     variant="outlined"
                     color="error"
-                    onClick={() => onDelete?.(params.row)}
+                    onClick={() => {
+                        const id = params.row[primaryKey]
+
+                        console.log('Deleting:', {
+                            recordType,
+                            primaryKey,
+                            id
+                        })
+
+                        onDelete?.(params.row)
+                    }}
                 >
                     Delete
+                </Button>
+                <Button
+                    size="small"
+                    variant="outlined"
+                    onClick={() => onView?.(params.row)}
+                >
+                    View Details
                 </Button>
             </Box>
         ),
@@ -70,7 +109,7 @@ export default function RecordsTable({ recordType, onEdit, onDelete }) {
             <DataGrid
                 rows={rows}
                 columns={[...dataColumns, actionColumn]}
-                getRowId={(row) => row[Object.keys(row)[0]]}
+                getRowId={(row) => row[primaryKey]}
                 showToolbar
             />
         </div>

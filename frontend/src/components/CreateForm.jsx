@@ -1,6 +1,6 @@
 import FormBase from '../components/FormBase'
 import { useState } from 'react'
-import { postUser } from '../../lib/api'
+import { postUser, postAttractions, postRoadTripPlaces } from '../../lib/api'
 
 export default function Create({ recordList, onClose, entityType }) {
     const [message, setMessage] = useState("")
@@ -10,16 +10,30 @@ export default function Create({ recordList, onClose, entityType }) {
 
         if (entityType === "roadTrippers") {
             result = await postUser(data)
+
+        }
+        else if (entityType === "roadTripPlaces") {
+            result = await postRoadTripPlaces(data)
+
+        }
+        else if (entityType === "attractions") {
+
+            result = await postAttractions(data);
         }
 
-        else {
+        else if (entityType === "places") {
+            result = await postPlaces(data)
+
+        } else {
             return
         }
 
         if (result?.error) {
             setMessage(`Error: ${result.error}`)
         } else {
-            setMessage(result?.message || "Record created successfully")
+            setMessage(
+                result?.message || "Record created successfully"
+            )
         }
     }
 
