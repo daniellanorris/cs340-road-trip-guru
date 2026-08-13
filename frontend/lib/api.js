@@ -271,6 +271,25 @@ export async function deleteRoadTripPlaces(data) {
     }
 }
 
+export async function deleteRoadTripRoutes(data) {
+    try {
+        const response = await fetch(`${BASE_URL}/delete-road-trip-routes`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                road_trip_id: data.road_trip_id,
+            })
+        })
+        const result = await response.json()
+        if (!response.ok) return { error: result.error }
+        return { message: result.message }
+    } catch (error) {
+        console.error(error)
+        return { error: "Could not connect to server" }
+    }
+}
+
+
 export async function deleteAttraction(data) {
     try {
         const response = await fetch(`${BASE_URL}/delete-attraction`, {

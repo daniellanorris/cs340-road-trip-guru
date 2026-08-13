@@ -175,6 +175,18 @@ app.post('/delete-road-trip-places', async (req, res) => {
     }
 })
 
+
+app.post('/delete-road-trip-routes', async (req, res) => {
+    try {
+        const { road_trip_id } = req.body
+        const [result] = await db.query('CALL sp_delete_road_trip_routes(?)', [road_trip_id])
+        res.status(201).json({ result, message: 'Record deleted successfully. Refresh page to see row added to table.' })
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({ error: error.sqlMessage || error.message })
+    }
+})
+
 app.post('/delete-attraction', async (req, res) => {
     try {
         const { attraction_id } = req.body;

@@ -1,5 +1,6 @@
 -- Road Trip Guru Database DDL
 -- Creates the Road Trip Guru database schema.
+-- Daniella Norris and Feifan Qi
 
 SET @OLD_UNIQUE_CHECKS = @@UNIQUE_CHECKS;
 SET UNIQUE_CHECKS = 0;

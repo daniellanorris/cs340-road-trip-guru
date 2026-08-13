@@ -1,5 +1,6 @@
 -- Road Trip Guru RESET stored procedure
 -- Recreates database tables and reloads sample data
+-- Daniella Norris and Feifan Qi
 DROP PROCEDURE IF EXISTS sp_reset_road_trip_guru;
 
 DELIMITER / / CREATE PROCEDURE sp_reset_road_trip_guru () BEGIN
@@ -240,5 +241,74 @@ INSERT INTO
     RoadTrippers (username, email)
 VALUES
     (p_username, p_email);
+
+END / / DELIMITER;
+
+-- SP for deleting from road_trip_places table
+DROP PROCEDURE IF EXISTS sp_delete_rt_places;
+
+DELIMITER / / CREATE PROCEDURE sp_delete_rt_places (IN p_road_trip_place_id INT) BEGIN
+DELETE FROM RoadTripPlaces
+WHERE
+    road_trip_place_id = p_road_trip_place_id;
+
+END / / DELIMITER;
+
+-- sp for adding road trip places, takes place_id, road_trip_id, and stop_order as params
+DROP PROCEDURE IF EXISTS sp_create_rt_places;
+
+DELIMITER / / CREATE PROCEDURE sp_create_rt_places (
+    IN p_place_id INT,
+    IN p_road_trip_id INT,
+    IN p_stop_order INT
+) BEGIN
+INSERT INTO
+    RoadTripPlaces (place_id, road_trip_id, stop_order)
+VALUES
+    (p_place_id, p_road_trip_id, p_stop_order);
+
+END / / DELIMITER;
+
+-- sp for editing road trip places, takes road_trip_place_id, 
+-- road_trip_id, place_id, and stop_order as params
+DROP PROCEDURE IF EXISTS sp_edit_rt_places;
+
+DELIMITER / / CREATE PROCEDURE sp_edit_rt_places (
+    IN p_road_trip_place_id INT,
+    IN p_road_trip_id INT,
+    IN p_place_id INT,
+    IN p_stop_order INT
+) BEGIN
+UPDATE RoadTripPlaces
+SET
+    road_trip_id = p_road_trip_id,
+    place_id = p_place_id,
+    stop_order = p_stop_order
+WHERE
+    road_trip_place_id = p_road_trip_place_id;
+
+END / / DELIMITER;
+
+-- sp for inserting new attractions, takes place_id and attraction_name as parameters
+DROP PROCEDURE IF EXISTS sp_insert_attraction;
+
+DELIMITER / / CREATE PROCEDURE sp_insert_attraction (
+    IN p_place_id INT,
+    IN p_attraction_name VARCHAR(255)
+) BEGIN
+INSERT INTO
+    Attractions (place_id, attraction_name)
+VALUES
+    (p_place_id, p_attraction_name);
+
+END / / DELIMITER;
+
+-- sp for inserting new attractions, takes place_id and attraction_name as parameters
+DROP PROCEDURE IF EXISTS sp_delete_road_trip_routes;
+
+DELIMITER / / CREATE PROCEDURE sp_delete_road_trip_routes (IN p_road_trip_id INT) BEGIN
+DELETE FROM RoadTripRoutes
+WHERE
+    road_trip_id = p_road_trip_id;
 
 END / / DELIMITER;
