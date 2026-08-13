@@ -1,8 +1,10 @@
+// Create form, reusable across all entities
+
 import FormBase from '../components/FormBase'
 import { useState } from 'react'
 import { postUser, postAttractions, postRoadTripPlaces } from '../../lib/api'
 
-export default function Create({ recordList, onClose, entityType }) {
+export default function Create({ recordList, onClose, entityType, viewForm = false }) {
     const [message, setMessage] = useState("")
 
     async function handleSubmit(data) {

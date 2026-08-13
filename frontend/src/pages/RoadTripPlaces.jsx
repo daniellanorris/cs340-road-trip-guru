@@ -2,15 +2,17 @@ import { useState } from "react";
 import Crud from "../components/Crud";
 import Table from "../components/Table";
 import Edit from "../components/EditForm";
+import View from "../components/ViewForm"
 import {
     deleteRoadTripPlaces,
-    editRoadTripPlaces
 } from "../../lib/api";
 
 import { roadTripPlaces } from "../types/data";
 
 export default function RoadTripPlaces() {
     const [editingRow, setEditingRow] = useState(null);
+    const [viewingRow, setViewingRow] = useState(null);
+    const [tableRefresh, setTableRefresh] = useState(0);
 
     async function handleDelete(row) {
         console.log("Deleting row:", row);
@@ -24,7 +26,9 @@ export default function RoadTripPlaces() {
             return;
         }
 
-        window.location.reload();
+        // Tell the table to fetch its data again
+        // For citation, prompt: Chat GPT - 'table refresh with props for React'
+        setTableRefresh(prev => prev + 1);
     }
 
     function handleEdit(row) {
@@ -37,7 +41,11 @@ export default function RoadTripPlaces() {
     }
 
     function handleView(row) {
-        setViewingRow(row)
+        setViewingRow(row);
+    }
+
+    function handleCloseView() {
+        setViewingRow(null)
     }
 
     return (
@@ -57,6 +65,7 @@ export default function RoadTripPlaces() {
                 onEdit={handleEdit}
                 onDelete={handleDelete}
                 onView={handleView}
+                refreshKey={tableRefresh}
             />
 
             {editingRow && (
@@ -67,6 +76,16 @@ export default function RoadTripPlaces() {
                     onClose={handleCloseEdit}
                 />
 
+            )}
+
+            {viewingRow && (
+                <View
+                    row={viewingRow}
+                    recordList={roadTripPlaces}
+                    entityType="roadTripPlaces"
+                    onClose={handleCloseView}
+
+                />
             )}
         </>
     );

@@ -1,3 +1,5 @@
+// Edit form, reusable across all entities
+
 import FormBase from "./FormBase";
 import { editRoadTripPlaces } from "../../lib/api";
 import { useState } from "react";

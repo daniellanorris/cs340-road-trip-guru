@@ -44,6 +44,7 @@ export default function DeleteForm({
             onSubmit={handleSubmit}
             onClose={handleClose}
             message={message}
+            viewForm={false}
         />
     );
 }

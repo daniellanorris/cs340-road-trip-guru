@@ -1,7 +1,7 @@
 import { getPlaces } from "../../../lib/api";
 import { useState, useEffect } from "react";
 
-export default function PlaceOptions({ name, value, onChange }) {
+export default function PlaceOptions({ name, value, onChange, disabled = false }) {
     const [places, setPlaces] = useState([]);
 
     useEffect(() => {
@@ -24,6 +24,7 @@ export default function PlaceOptions({ name, value, onChange }) {
             value={value || ""}
             onChange={onChange}
             className="form-input"
+            disabled={disabled}
         >
             <option value="">
                 Select a place

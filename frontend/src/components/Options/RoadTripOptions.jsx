@@ -1,7 +1,7 @@
 import { getRoadTripRoutes } from "../../../lib/api";
 import { useState, useEffect } from "react";
 
-export default function RoadTripOptions({ name, value, onChange }) {
+export default function RoadTripOptions({ name, value, onChange, disabled = false }) {
     const [roadTrips, setRoadTrips] = useState([]);
 
     useEffect(() => {
@@ -41,6 +41,7 @@ export default function RoadTripOptions({ name, value, onChange }) {
             value={value || ""}
             onChange={onChange}
             className="form-input"
+            disabled={disabled}
         >
             <option value="">
                 Select a road trip

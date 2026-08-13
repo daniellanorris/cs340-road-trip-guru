@@ -1,3 +1,6 @@
+// Table uses Material UI for generation + column management
+
+
 import { useEffect, useState } from 'react'
 import { DataGrid } from '@mui/x-data-grid'
 import Button from '@mui/material/Button'
@@ -30,7 +33,7 @@ const primaryKeyMap = {
     roadTripPlaces: 'road_trip_place_id',
 }
 
-export default function Table({ recordType, onEdit, onDelete, onView }) {
+export default function Table({ recordType, onEdit, onDelete, onView, refreshKey }) {
     const [rows, setRows] = useState([])
 
     useEffect(() => {
@@ -44,7 +47,7 @@ export default function Table({ recordType, onEdit, onDelete, onView }) {
         }
 
         fetchData()
-    }, [recordType])
+    }, [recordType, refreshKey])
 
     if (rows.length === 0) {
         return <p>No records found.</p>
@@ -61,12 +64,20 @@ export default function Table({ recordType, onEdit, onDelete, onView }) {
     const actionColumn = {
         field: 'actions',
         headerName: 'Actions',
-        flex: 1,
+        width: 300,
         sortable: false,
         filterable: false,
 
         renderCell: (params) => (
-            <Box sx={{ display: 'flex', gap: 1 }}>
+            <Box
+                sx={{
+                    display: 'flex',
+                    gap: 2,
+                    alignItems: 'center',
+                    width: '100%',
+                    whiteSpace: 'nowrap'
+                }}
+            >
                 <Button
                     size="small"
                     variant="outlined"
@@ -93,6 +104,7 @@ export default function Table({ recordType, onEdit, onDelete, onView }) {
                 >
                     Delete
                 </Button>
+
                 <Button
                     size="small"
                     variant="outlined"

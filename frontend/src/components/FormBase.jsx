@@ -3,6 +3,7 @@ import './FormBase.css';
 import CloseIcon from '@mui/icons-material/Close';
 import PlaceOptions from './Options/PlaceOptions';
 import RoadTripOptions from './Options/RoadTripOptions';
+import RoadTripperOptions from './Options/RoadTripperOptions';
 
 export default function FormBase({
     message,
@@ -10,17 +11,18 @@ export default function FormBase({
     onSubmit,
     onClose,
     rowData,
-    submitLabel = "Submit"
+    submitLabel = "Submit",
+    viewForm = false
 }) {
     const [formData, setFormData] = useState(rowData || {});
 
-    // Populate form with the selected row when editing
     useEffect(() => {
         if (rowData) {
             setFormData({
                 ...rowData,
                 road_trip_id: rowData.road_trip_id?.toString() || "",
                 place_id: rowData.place_id?.toString() || "",
+                road_tripper_id: rowData.road_tripper_id?.toString() || "",
                 stop_order: rowData.stop_order?.toString() || ""
             });
         }
@@ -85,12 +87,21 @@ export default function FormBase({
                                     name={key}
                                     value={formData[key] || ""}
                                     onChange={handleChange}
+                                    disabled={viewForm}
                                 />
                             ) : key === "road_trip_id" ? (
                                 <RoadTripOptions
                                     name={key}
                                     value={formData[key] || ""}
                                     onChange={handleChange}
+                                    disabled={viewForm}
+                                />
+                            ) : key === "road_tripper_id" ? (
+                                <RoadTripperOptions
+                                    name={key}
+                                    value={formData[key] || ""}
+                                    onChange={handleChange}
+                                    disabled={viewForm}
                                 />
                             ) : (
                                 <input
@@ -106,23 +117,28 @@ export default function FormBase({
                                     value={formData[key] || ""}
                                     onChange={handleChange}
                                     className="form-input"
+                                    disabled={viewForm}
                                 />
                             )}
+
                         </div>
                     ))}
 
-                    <button
-                        type="submit"
-                        className="submit-button"
-                    >
-                        {submitLabel}
-                    </button>
+                    {/* Disabling form submit when form is view only */}
+                    {!viewForm && (
+                        <button
+                            type="submit"
+                            className="submit-button"
+                        >
+                            {submitLabel}
+                        </button>
+                    )}
 
                     {message && (
                         <div
                             className={`form-message ${message.startsWith("Error")
-                                    ? "error"
-                                    : "success"
+                                ? "error"
+                                : "success"
                                 }`}
                         >
                             {message}

@@ -4,6 +4,8 @@ import Table from "../components/Table"
 
 export default function RoadTripRoutes() {
 
+
+
     return (
         <>
             <h1> RoadTripRoutes</h1>
