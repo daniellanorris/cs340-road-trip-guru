@@ -145,6 +145,41 @@ export async function postRoadTripPlaces(data) {
     }
 }
 
+export async function postRoadTripRoutes(data) {
+    try {
+        console.log("POST road trip route data:", data);
+
+        const response = await fetch(`${BASE_URL}/create-road-trip-routes`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                road_tripper_id: data.road_tripper_id,
+                road_trip_name: data.road_trip_name,
+                distance: data.distance,
+                start_date: data.start_date,
+                end_date: data.end_date
+            })
+        });
+
+        const result = await response.json();
+
+        console.log("POST road trip routes response:", result);
+
+        if (!response.ok) {
+            return { error: result.error };
+        }
+
+        return { message: result.message };
+
+    } catch (error) {
+        console.error(error);
+        return { error: "Could not connect to server" };
+    }
+}
+
+
 /*----------------
 /* EDITS
 /*----------------*/

@@ -158,6 +158,17 @@ app.post('/create-road-trip-places', async (req, res) => {
     }
 })
 
+app.post('/create-road-trip-routes', async (req, res) => {
+    try {
+        const { road_tripper_id, road_trip_name, distance, start_date, end_date } = req.body
+        const [result] = await db.query('CALL sp_insert_road_trip_route(?,?,?,?,?)', [road_tripper_id, road_trip_name, distance, start_date, end_date])
+        res.status(201).json({ result, message: 'Record created successfully. Refresh page to see row added to table.' })
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({ error: error.sqlMessage || error.message })
+    }
+})
+
 
 
 /* -------------

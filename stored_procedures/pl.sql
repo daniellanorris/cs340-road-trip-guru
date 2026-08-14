@@ -303,12 +303,41 @@ VALUES
 
 END / / DELIMITER;
 
--- sp for inserting new attractions, takes place_id and attraction_name as parameters
+-- sp for deleting rt routes
 DROP PROCEDURE IF EXISTS sp_delete_road_trip_routes;
 
 DELIMITER / / CREATE PROCEDURE sp_delete_road_trip_routes (IN p_road_trip_id INT) BEGIN
 DELETE FROM RoadTripRoutes
 WHERE
     road_trip_id = p_road_trip_id;
+
+END / / DELIMITER;
+
+-- sp for inserting new rt routes, takes place_id and attraction_name as parameters
+DROP PROCEDURE IF EXISTS sp_insert_road_trip_route;
+
+DELIMITER / / CREATE PROCEDURE sp_insert_road_trip_route (
+    IN p_road_tripper_id INT,
+    IN p_road_trip_name VARCHAR(255),
+    IN p_distance INT,
+    IN p_start_date DATE,
+    IN p_end_date DATE
+) BEGIN
+INSERT INTO
+    RoadTripRoutes (
+        road_tripper_id,
+        road_trip_name,
+        distance,
+        start_date,
+        end_date
+    )
+VALUES
+    (
+        p_road_tripper_id,
+        p_road_trip_name,
+        p_distance,
+        p_start_date,
+        p_end_date
+    );
 
 END / / DELIMITER;

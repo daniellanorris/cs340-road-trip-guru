@@ -23,11 +23,19 @@ export default function FormBase({
                 road_trip_id: rowData.road_trip_id?.toString() || "",
                 place_id: rowData.place_id?.toString() || "",
                 road_tripper_id: rowData.road_tripper_id?.toString() || "",
-                stop_order: rowData.stop_order?.toString() || ""
+                stop_order: rowData.stop_order?.toString() || "",
+
+                // formatting the date to a string
+                start_date: rowData.start_date
+                    ? new Date(rowData.start_date).toISOString().split("T")[0]
+                    : "",
+
+                end_date: rowData.end_date
+                    ? new Date(rowData.end_date).toISOString().split("T")[0]
+                    : ""
             });
         }
     }, [rowData]);
-
     function handleChange(event) {
         const { name, value } = event.target;
 
