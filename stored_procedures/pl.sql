@@ -341,3 +341,27 @@ VALUES
     );
 
 END / / DELIMITER;
+
+-- sp for editing road trips, takes road_tripper_id, 
+-- road_trip_name, distance, start_date, and end_date as paramsDROP PROCEDURE IF EXISTS sp_edit_road_trip;
+DROP PROCEDURE IF EXISTS sp_edit_road_trip;
+
+DELIMITER / / CREATE PROCEDURE sp_edit_road_trip (
+    IN p_road_trip_id INT,
+    IN p_road_tripper_id INT,
+    IN p_road_trip_name VARCHAR(255),
+    IN p_distance INT,
+    IN p_start_date DATE,
+    IN p_end_date DATE
+) BEGIN
+UPDATE RoadTripRoutes
+SET
+    road_tripper_id = p_road_tripper_id,
+    road_trip_name = p_road_trip_name,
+    distance = p_distance,
+    start_date = p_start_date,
+    end_date = p_end_date
+WHERE
+    road_trip_id = p_road_trip_id;
+
+END / / DELIMITER;

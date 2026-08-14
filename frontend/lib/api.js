@@ -254,8 +254,14 @@ export async function editRoadTrips(data) {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 road_trip_id: data.road_trip_id,
+                road_tripper_id: data.road_tripper_id,
+                road_trip_name: data.road_trip_name,
+                distance: data.distance,
+                start_date: data.start_date,
+                end_date: data.end_date
             })
         })
+
         const result = await response.json()
         if (!response.ok) return { error: result.error }
         return { message: result.message }
