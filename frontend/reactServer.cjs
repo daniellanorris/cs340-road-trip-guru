@@ -1,3 +1,5 @@
+// Adapted from the CS340 Assignment 2 FE code for React
+
 const express = require('express');
 const path = require('path');
 

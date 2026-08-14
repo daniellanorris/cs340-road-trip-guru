@@ -3,7 +3,8 @@
 -- Daniella Norris and Feifan Qi
 
 /* Asked ChatGPT:
-"Help structure the SQL_MODE for this DDL file" */
+"Help structure the SQL_MODE for this DDL file"
+*/
 
 SET @OLD_UNIQUE_CHECKS = @@UNIQUE_CHECKS;
 SET UNIQUE_CHECKS = 0;
@@ -16,6 +17,7 @@ SET @OLD_SQL_MODE = @@SQL_MODE;
 SET SQL_MODE =
 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
+
 -- ============================================
 -- Drop existing tables
 -- ============================================
@@ -26,6 +28,7 @@ DROP TABLE IF EXISTS TripBudgets;
 DROP TABLE IF EXISTS RoadTripRoutes;
 DROP TABLE IF EXISTS Places;
 DROP TABLE IF EXISTS RoadTrippers;
+
 
 -- ============================================
 -- RoadTrippers
@@ -42,6 +45,7 @@ CREATE TABLE RoadTrippers (
     UNIQUE INDEX username_UNIQUE (username)
 )
 ENGINE = InnoDB;
+
 
 -- ============================================
 -- RoadTripRoutes
@@ -66,6 +70,7 @@ CREATE TABLE RoadTripRoutes (
 )
 ENGINE = InnoDB;
 
+
 -- ============================================
 -- TripBudgets
 -- ============================================
@@ -87,6 +92,7 @@ CREATE TABLE TripBudgets (
 )
 ENGINE = InnoDB;
 
+
 -- ============================================
 -- Places
 -- ============================================
@@ -100,6 +106,7 @@ CREATE TABLE Places (
     PRIMARY KEY (place_id)
 )
 ENGINE = InnoDB;
+
 
 -- ============================================
 -- RoadTripPlaces
@@ -118,7 +125,7 @@ CREATE TABLE RoadTripPlaces (
     CONSTRAINT fk_rtplace_trip
         FOREIGN KEY (road_trip_id)
         REFERENCES RoadTripRoutes (road_trip_id)
-        ON DELETE NO ACTION
+        ON DELETE CASCADE
         ON UPDATE NO ACTION,
 
     CONSTRAINT fk_rtplace_place
@@ -128,6 +135,7 @@ CREATE TABLE RoadTripPlaces (
         ON UPDATE NO ACTION
 )
 ENGINE = InnoDB;
+
 
 -- ============================================
 -- Attractions
@@ -149,8 +157,4 @@ CREATE TABLE Attractions (
 )
 ENGINE = InnoDB;
 
--- Restore settings
 
-SET SQL_MODE = @OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS = @OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS = @OLD_UNIQUE_CHECKS;
