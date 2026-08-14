@@ -83,19 +83,99 @@ to connect to the backend.
 
 Both the frontend and backend servers need to be running for the application to work locally.
 
-## Citations and References
+## References
 
 Course materials provided through Oregon State University CS 340 were used throughout the project.
 
 Additional references identified in the source files include:
 
-- Express documentation: https://expressjs.com/
-- GeeksforGeeks React reference: https://www.geeksforgeeks.org/reactjs/reactjs-basics-concepts-complete-reference/
-- Vite configuration documentation: https://vite.dev/config/
+* Express documentation: https://expressjs.com/
+* GeeksforGeeks React reference: https://www.geeksforgeeks.org/reactjs/reactjs-basics-concepts-complete-reference/
+* Vite configuration documentation: https://vite.dev/config/
 
 React, Material UI, MUI Data Grid, MySQL, and the other packages listed in the project `package.json` files are used as project dependencies.
 
-AI tools were used for limited assistance with SQL formatting, React props, Express routing, and checking the final submission requirements. These uses are documented in the relevant source files.
+Limited AI assistance was used where documented in the relevant source files, with the exception of the below. AI was also used to review assignment requirements and check the completeness of the final submission.
+
+```
+/*
+EditForm.jsx
+Citation:
+File level -
+Asked ChatGPT:
+"Help me figure out a method to pass in my data objects from my forms
+into my existing methods that call my express API"
+*/
+
+/*
+FormBase.css
+Citation:
+File level -
+Asked ChatGPT:
+"Help me make my current form card responsive so that it does not overflow on smaller screens or
+when it has more content (pasted form card css)"
+*/
+
+/* 
+FormBase.jsx
+Citation:
+File level -
+Asked ChatGPT:
+"Help me convert my current date / time format derived from form entry into strings that can be passed in 
+to my existing post request and form display."
+
+*/
+
+/* 
+NavBar.jsx
+Citation:
+File level -
+Asked ChatGPT:
+"I am building a nav bar using React and I already have my routes and general scaffolding set up in the pasted code. 
+Help me add CSS styling to make sure the navbar has consistent styling, wraps on resize, 
+and the relevant tab the user is on remains highlighted. "
+*/
+
+/* 
+Table.jsx
+Citation:
+File level -
+Asked ChatGPT:
+"With the current Material UI components in place, help me utilize
+Material UI's Grid functionality. This is meant to be used with my data
+types (inserted data types)."
+
+"Assist with mapping over existing object keys to display in a tabular
+format for compatibility with Material UI."
+
+*/
+
+/* 
+RoadTripPlaces.jsx
+File level - 
+For citation, prompt: 
+Chat GPT - 'how to perform a table refresh with props for React' */
+
+/*
+RoadTripRoutes.jsx
+File level - 
+For citation, prompt: Chat GPT - 'table refresh with props for React'
+*/
+
+/* DDL.sql
+Citation:
+File level -
+Asked ChatGPT:
+"Help structure the SQL_MODE for this DDL file"
+*/
+
+/* 
+pl.sql
+Used ChatGPT to help format this file. 
+Citation: File level -
+Prompt: Format this file for MariaDB, keeping my comment and DB structure in tact */
+
+```
 
 ## Project Work
 
