@@ -1,3 +1,6 @@
+/* Used React documentation from react.com and the Geeks for Geeks React articles
+https://www.geeksforgeeks.org/reactjs/reactjs-basics-concepts-complete-reference/ */
+
 import { useEffect, useState } from 'react';
 import './FormBase.css';
 import CloseIcon from '@mui/icons-material/Close';

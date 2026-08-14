@@ -1,3 +1,7 @@
+/* Used React documentation from react.com and the Geeks for Geeks React articles
+https://www.geeksforgeeks.org/reactjs/reactjs-basics-concepts-complete-reference/ */
+
+
 import Crud from '../components/Crud.jsx'
 import ResetModal from '../components/ResetModal.jsx'
 import { useState } from 'react'
