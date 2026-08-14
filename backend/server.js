@@ -102,6 +102,17 @@ app.put('/edit-rt-places', async (req, res) => {
     }
 })
 
+app.put('/edit-road-trips', async (req, res) => {
+    try {
+        const { road_trip_id, road_tripper_id, road_trip_name, distance, start_date, end_date } = req.body
+        const [result] = await db.query('CALL sp_edit_road_trip(?, ?, ?, ?, ?, ?)', [road_trip_id, road_tripper_id, road_trip_name, distance, start_date, end_date])
+        res.status(201).json({ result, message: 'Record edited successfully. Refresh page to see row added to table.' })
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({ error: error.sqlMessage || error.message })
+    }
+})
+
 
 /* -------------
 * CREATES
@@ -151,6 +162,17 @@ app.post('/create-road-trip-places', async (req, res) => {
     try {
         const { road_trip_id, place_id, stop_order } = req.body
         const [result] = await db.query('CALL sp_create_rt_places(?,?,?)', [road_trip_id, place_id, stop_order])
+        res.status(201).json({ result, message: 'Record created successfully. Refresh page to see row added to table.' })
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({ error: error.sqlMessage || error.message })
+    }
+})
+
+app.post('/create-road-trip-routes', async (req, res) => {
+    try {
+        const { road_tripper_id, road_trip_name, distance, start_date, end_date } = req.body
+        const [result] = await db.query('CALL sp_insert_road_trip_route(?,?,?,?,?)', [road_tripper_id, road_trip_name, distance, start_date, end_date])
         res.status(201).json({ result, message: 'Record created successfully. Refresh page to see row added to table.' })
     } catch (error) {
         console.error(error)

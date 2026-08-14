@@ -2,7 +2,7 @@
 
 import FormBase from '../components/FormBase'
 import { useState } from 'react'
-import { postUser, postAttractions, postRoadTripPlaces } from '../../lib/api'
+import { postUser, postAttractions, postRoadTripPlaces, postRoadTripRoutes } from '../../lib/api'
 
 export default function Create({ recordList, onClose, entityType, viewForm = false }) {
     const [message, setMessage] = useState("")
@@ -26,7 +26,13 @@ export default function Create({ recordList, onClose, entityType, viewForm = fal
         else if (entityType === "places") {
             result = await postPlaces(data)
 
-        } else {
+        }
+
+        else if (entityType === "roadTripRoutes") {
+            result = await postRoadTripRoutes(data)
+
+        }
+        else {
             return
         }
 
