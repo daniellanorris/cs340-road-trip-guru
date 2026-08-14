@@ -29,8 +29,10 @@ export default function RoadTripPlaces() {
             return;
         }
 
-        // Tell the table to fetch its data again
-        // For citation, prompt: Chat GPT - 'table refresh with props for React'
+        // File level - 
+        // For citation, prompt: 
+        // Chat GPT - 'how to perform a table refresh with props for React'
+
         setTableRefresh(prev => prev + 1);
     }
 
