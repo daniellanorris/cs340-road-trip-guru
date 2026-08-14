@@ -1,6 +1,17 @@
 /* Used React documentation from react.com and the Geeks for Geeks React articles
 https://www.geeksforgeeks.org/reactjs/reactjs-basics-concepts-complete-reference/ */
 
+/* 
+
+Citation:
+File level -
+Asked ChatGPT:
+"Help me convert my current date / time format derived from form entry into strings that can be passed in 
+to my existing post request and form display."
+
+*/
+
+
 import { useEffect, useState } from 'react';
 import './FormBase.css';
 import CloseIcon from '@mui/icons-material/Close';
@@ -50,9 +61,6 @@ export default function FormBase({
 
     async function handleSubmit(event) {
         event.preventDefault();
-
-        console.log("FORM DATA:", formData);
-
         await onSubmit?.(formData);
     }
 

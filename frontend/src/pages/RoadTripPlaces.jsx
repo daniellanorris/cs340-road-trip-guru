@@ -1,6 +1,10 @@
 /* Used React documentation from react.com and the Geeks for Geeks React articles
 https://www.geeksforgeeks.org/reactjs/reactjs-basics-concepts-complete-reference/ */
 
+/* File level - 
+For citation, prompt: 
+Chat GPT - 'how to perform a table refresh with props for React' */
+
 import { useState } from "react";
 import Crud from "../components/Crud";
 import Table from "../components/Table";
@@ -29,9 +33,6 @@ export default function RoadTripPlaces() {
             return;
         }
 
-        // File level - 
-        // For citation, prompt: 
-        // Chat GPT - 'how to perform a table refresh with props for React'
 
         setTableRefresh(prev => prev + 1);
     }
