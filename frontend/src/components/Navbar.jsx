@@ -1,6 +1,17 @@
 /* Used React documentation from react.com and the Geeks for Geeks React articles
 https://www.geeksforgeeks.org/reactjs/reactjs-basics-concepts-complete-reference/ */
 
+/* 
+
+Citation:
+File level -
+Asked ChatGPT:
+"I am building a nav bar using React and I already have my routes and general scaffolding set up in the pasted code. 
+Help me add CSS styling to make sure the navbar has consistent styling, wraps on resize, 
+and the relevant tab the user is on remains highlighted. "
+
+*/
+
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react'
 import '../App.css';

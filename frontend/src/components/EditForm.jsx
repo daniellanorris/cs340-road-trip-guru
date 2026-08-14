@@ -3,6 +3,17 @@ https://www.geeksforgeeks.org/reactjs/reactjs-basics-concepts-complete-reference
 
 // Edit form, reusable across all entities
 
+/* 
+
+Citation:
+File level -
+Asked ChatGPT:
+"Help me figure out a method to pass in my data objects from my forms
+into my existing methods that call my express API"
+
+*/
+
+
 import FormBase from "./FormBase";
 import { editRoadTrips, editRoadTripPlaces } from "../../lib/api";
 import { useState } from "react";

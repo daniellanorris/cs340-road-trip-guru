@@ -2,6 +2,7 @@
 -- Recreates database tables and reloads sample data
 -- Daniella Norris and Feifan Qi
 /* Used ChatGPT to help format this file. 
+Citation: File level -
 Prompt: Format this file for MariaDB, keeping my comment and DB structure in tact */
 DROP PROCEDURE IF EXISTS sp_reset_road_trip_guru;
 
@@ -92,7 +93,7 @@ CREATE TABLE
         PRIMARY KEY (road_trip_place_id),
         INDEX road_trip_id_idx (road_trip_id),
         INDEX place_id_idx (place_id),
-        CONSTRAINT fk_rtplace_trip FOREIGN KEY (road_trip_id) REFERENCES RoadTripRoutes (road_trip_id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+        CONSTRAINT fk_rtplace_trip FOREIGN KEY (road_trip_id) REFERENCES RoadTripRoutes (road_trip_id) ON DELETE CASCADE ON UPDATE NO ACTION,
         CONSTRAINT fk_rtplace_place FOREIGN KEY (place_id) REFERENCES Places (place_id) ON DELETE NO ACTION ON UPDATE NO ACTION
     ) ENGINE = InnoDB;
 

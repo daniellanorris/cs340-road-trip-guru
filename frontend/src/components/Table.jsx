@@ -3,6 +3,21 @@ https://www.geeksforgeeks.org/reactjs/reactjs-basics-concepts-complete-reference
 
 // Table uses Material UI for generation + column management
 
+/* 
+
+Citation:
+File level -
+Asked ChatGPT:
+"With the current Material UI components in place, help me utilize
+Material UI's Grid functionality. This is meant to be used with my data
+types (inserted data types)."
+
+"Assist with mapping over existing object keys to display in a tabular
+format for compatibility with Material UI."
+
+*/
+
+
 
 import { useEffect, useState } from 'react'
 import { DataGrid } from '@mui/x-data-grid'
