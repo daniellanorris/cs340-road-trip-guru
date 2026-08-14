@@ -1,3 +1,6 @@
+/* Used React documentation from react.com and the Geeks for Geeks React articles
+https://www.geeksforgeeks.org/reactjs/reactjs-basics-concepts-complete-reference/ */
+
 import './App.css';
 import NavBar from './components/Navbar';
 import { Routes, Route } from 'react-router-dom';

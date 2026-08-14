@@ -1,3 +1,6 @@
+/* Used React documentation from react.com and the Geeks for Geeks React articles
+https://www.geeksforgeeks.org/reactjs/reactjs-basics-concepts-complete-reference/ */
+
 // Edit form, reusable across all entities
 
 import FormBase from "./FormBase";

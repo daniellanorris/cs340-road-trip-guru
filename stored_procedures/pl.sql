@@ -1,12 +1,17 @@
 -- Road Trip Guru RESET stored procedure
 -- Recreates database tables and reloads sample data
 -- Daniella Norris and Feifan Qi
+/* Used ChatGPT to help format this file. 
+Prompt: Format this file for MariaDB, keeping my comment and DB structure in tact */
 DROP PROCEDURE IF EXISTS sp_reset_road_trip_guru;
 
 DELIMITER / / CREATE PROCEDURE sp_reset_road_trip_guru () BEGIN
 SET
     FOREIGN_KEY_CHECKS = 0;
 
+-- ============================================
+-- Drop existing tables
+-- ============================================
 DROP TABLE IF EXISTS RoadTripPlaces;
 
 DROP TABLE IF EXISTS Attractions;
@@ -19,6 +24,9 @@ DROP TABLE IF EXISTS Places;
 
 DROP TABLE IF EXISTS RoadTrippers;
 
+-- ============================================
+-- RoadTrippers
+-- ============================================
 CREATE TABLE
     IF NOT EXISTS RoadTrippers (
         road_tripper_id INT NOT NULL AUTO_INCREMENT,
@@ -26,10 +34,13 @@ CREATE TABLE
         email VARCHAR(255) NOT NULL,
         created_at DATETIME NOT NULL,
         PRIMARY KEY (road_tripper_id),
-        UNIQUE INDEX email_UNIQUE (email ASC),
-        UNIQUE INDEX username_UNIQUE (username ASC)
+        UNIQUE INDEX email_UNIQUE (email),
+        UNIQUE INDEX username_UNIQUE (username)
     ) ENGINE = InnoDB;
 
+-- ============================================
+-- RoadTripRoutes
+-- ============================================
 CREATE TABLE
     IF NOT EXISTS RoadTripRoutes (
         road_trip_id INT NOT NULL AUTO_INCREMENT,
@@ -39,10 +50,13 @@ CREATE TABLE
         start_date DATETIME NULL DEFAULT NULL,
         end_date DATETIME NULL DEFAULT NULL,
         PRIMARY KEY (road_trip_id),
-        INDEX road_tripper_id_idx (road_tripper_id ASC),
+        INDEX road_tripper_id_idx (road_tripper_id),
         CONSTRAINT fk_route_roadtripper FOREIGN KEY (road_tripper_id) REFERENCES RoadTrippers (road_tripper_id) ON DELETE NO ACTION ON UPDATE NO ACTION
     ) ENGINE = InnoDB;
 
+-- ============================================
+-- TripBudgets
+-- ============================================
 CREATE TABLE
     IF NOT EXISTS TripBudgets (
         trip_budget_id INT NOT NULL AUTO_INCREMENT,
@@ -50,10 +64,13 @@ CREATE TABLE
         daily_budget DECIMAL(10, 2) NULL DEFAULT NULL,
         road_trip_id INT NOT NULL,
         PRIMARY KEY (trip_budget_id),
-        UNIQUE INDEX road_trip_id_UNIQUE (road_trip_id ASC),
+        UNIQUE INDEX road_trip_id_UNIQUE (road_trip_id),
         CONSTRAINT fk_route_budget FOREIGN KEY (road_trip_id) REFERENCES RoadTripRoutes (road_trip_id) ON DELETE NO ACTION ON UPDATE NO ACTION
     ) ENGINE = InnoDB;
 
+-- ============================================
+-- Places
+-- ============================================
 CREATE TABLE
     IF NOT EXISTS Places (
         place_id INT NOT NULL AUTO_INCREMENT,
@@ -63,6 +80,9 @@ CREATE TABLE
         PRIMARY KEY (place_id)
     ) ENGINE = InnoDB;
 
+-- ============================================
+-- RoadTripPlaces
+-- ============================================
 CREATE TABLE
     IF NOT EXISTS RoadTripPlaces (
         road_trip_place_id INT NOT NULL AUTO_INCREMENT,
@@ -70,23 +90,28 @@ CREATE TABLE
         place_id INT NOT NULL,
         stop_order INT NOT NULL,
         PRIMARY KEY (road_trip_place_id),
-        INDEX road_trip_id_idx (road_trip_id ASC),
-        INDEX place_id_idx (place_id ASC),
+        INDEX road_trip_id_idx (road_trip_id),
+        INDEX place_id_idx (place_id),
         CONSTRAINT fk_rtplace_trip FOREIGN KEY (road_trip_id) REFERENCES RoadTripRoutes (road_trip_id) ON DELETE NO ACTION ON UPDATE NO ACTION,
         CONSTRAINT fk_rtplace_place FOREIGN KEY (place_id) REFERENCES Places (place_id) ON DELETE NO ACTION ON UPDATE NO ACTION
     ) ENGINE = InnoDB;
 
+-- ============================================
+-- Attractions
+-- ============================================
 CREATE TABLE
     IF NOT EXISTS Attractions (
         attraction_id INT NOT NULL AUTO_INCREMENT,
         place_id INT NOT NULL,
         attraction_name VARCHAR(255) NOT NULL,
         PRIMARY KEY (attraction_id),
-        INDEX place_id_idx (place_id ASC),
+        INDEX place_id_idx (place_id),
         CONSTRAINT fk_attraction_place FOREIGN KEY (place_id) REFERENCES Places (place_id) ON DELETE NO ACTION ON UPDATE NO ACTION
     ) ENGINE = InnoDB;
 
--- Insert sample data
+-- ============================================
+-- Insert sample RoadTrippers
+-- ============================================
 INSERT INTO
     RoadTrippers (username, email, created_at)
 VALUES
@@ -116,6 +141,9 @@ VALUES
         '2026-07-05 08:10:00'
     );
 
+-- ============================================
+-- Insert sample RoadTripRoutes
+-- ============================================
 INSERT INTO
     RoadTripRoutes (
         road_tripper_id,
@@ -156,6 +184,9 @@ VALUES
     (4, 'New England Fall Colors', 700, NULL, NULL),
     (2, 'Cross Country Move', 2000, NULL, NULL);
 
+-- ============================================
+-- Insert sample TripBudgets
+-- ============================================
 INSERT INTO
     TripBudgets (total_budget, daily_budget, road_trip_id)
 VALUES
@@ -166,6 +197,9 @@ VALUES
     (1400.00, 200.00, 5),
     (NULL, NULL, 6);
 
+-- ============================================
+-- Insert sample Places
+-- ============================================
 INSERT INTO
     Places (place_name, place_state, place_city)
 VALUES
@@ -197,6 +231,9 @@ VALUES
         'Yosemite Valley'
     );
 
+-- ============================================
+-- Insert sample RoadTripPlaces
+-- ============================================
 INSERT INTO
     RoadTripPlaces (road_trip_id, place_id, stop_order)
 VALUES
@@ -210,6 +247,9 @@ VALUES
     (5, 5, 1),
     (6, 2, 1);
 
+-- ============================================
+-- Insert sample Attractions
+-- ============================================
 INSERT INTO
     Attractions (place_id, attraction_name)
 VALUES
@@ -307,6 +347,11 @@ END / / DELIMITER;
 DROP PROCEDURE IF EXISTS sp_delete_road_trip_routes;
 
 DELIMITER / / CREATE PROCEDURE sp_delete_road_trip_routes (IN p_road_trip_id INT) BEGIN
+-- needing to delete records that are dependant
+DELETE FROM TripBudgets
+WHERE
+    road_trip_id = p_road_trip_id;
+
 DELETE FROM RoadTripRoutes
 WHERE
     road_trip_id = p_road_trip_id;

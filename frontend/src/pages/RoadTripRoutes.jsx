@@ -1,4 +1,7 @@
 
+/* Used React documentation from react.com and the Geeks for Geeks React articles
+https://www.geeksforgeeks.org/reactjs/reactjs-basics-concepts-complete-reference/ */
+
 import Crud from "../components/Crud"
 import Table from "../components/Table"
 import { useState } from "react";

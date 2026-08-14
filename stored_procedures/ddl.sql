@@ -2,6 +2,9 @@
 -- Creates the Road Trip Guru database schema.
 -- Daniella Norris and Feifan Qi
 
+/* Asked ChatGPT:
+"Help structure the SQL_MODE for this DDL file" */
+
 SET @OLD_UNIQUE_CHECKS = @@UNIQUE_CHECKS;
 SET UNIQUE_CHECKS = 0;
 
@@ -13,7 +16,9 @@ SET @OLD_SQL_MODE = @@SQL_MODE;
 SET SQL_MODE =
 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
--- drop existing
+-- ============================================
+-- Drop existing tables
+-- ============================================
 
 DROP TABLE IF EXISTS Attractions;
 DROP TABLE IF EXISTS RoadTripPlaces;
@@ -56,7 +61,7 @@ CREATE TABLE RoadTripRoutes (
     CONSTRAINT fk_route_roadtripper
         FOREIGN KEY (road_tripper_id)
         REFERENCES RoadTrippers (road_tripper_id)
-        ON DELETE CASCADE
+        ON DELETE NO ACTION
         ON UPDATE NO ACTION
 )
 ENGINE = InnoDB;
@@ -77,7 +82,7 @@ CREATE TABLE TripBudgets (
     CONSTRAINT fk_route_budget
         FOREIGN KEY (road_trip_id)
         REFERENCES RoadTripRoutes (road_trip_id)
-        ON DELETE CASCADE
+        ON DELETE NO ACTION
         ON UPDATE NO ACTION
 )
 ENGINE = InnoDB;
@@ -113,7 +118,7 @@ CREATE TABLE RoadTripPlaces (
     CONSTRAINT fk_rtplace_trip
         FOREIGN KEY (road_trip_id)
         REFERENCES RoadTripRoutes (road_trip_id)
-        ON DELETE CASCADE
+        ON DELETE NO ACTION
         ON UPDATE NO ACTION,
 
     CONSTRAINT fk_rtplace_place
@@ -139,10 +144,12 @@ CREATE TABLE Attractions (
     CONSTRAINT fk_attraction_place
         FOREIGN KEY (place_id)
         REFERENCES Places (place_id)
-        ON DELETE CASCADE
+        ON DELETE NO ACTION
         ON UPDATE NO ACTION
 )
 ENGINE = InnoDB;
+
+-- Restore settings
 
 SET SQL_MODE = @OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS = @OLD_FOREIGN_KEY_CHECKS;

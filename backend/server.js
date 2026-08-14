@@ -1,3 +1,6 @@
+/* Used express documentation from https://expressjs.com/
+to generate api routes */
+
 import express from 'express'
 import { db } from './db-connector.js'
 import cors from 'cors'
