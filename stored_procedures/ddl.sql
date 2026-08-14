@@ -2,7 +2,10 @@
 -- Creates the Road Trip Guru database schema.
 -- Daniella Norris and Feifan Qi
 
-/* Asked ChatGPT:
+/* 
+Citation:
+File level -
+Asked ChatGPT:
 "Help structure the SQL_MODE for this DDL file"
 */
 

@@ -2,6 +2,7 @@
 -- Recreates database tables and reloads sample data
 -- Daniella Norris and Feifan Qi
 /* Used ChatGPT to help format this file. 
+Citation: File level -
 Prompt: Format this file for MariaDB, keeping my comment and DB structure in tact */
 DROP PROCEDURE IF EXISTS sp_reset_road_trip_guru;
 
